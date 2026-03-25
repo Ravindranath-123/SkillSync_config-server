@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: auth-service
@@ -13,8 +16,14 @@ spring:
       ddl-auto: update
     show-sql: true
 
-server:
-  port: 8091
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ravindranathpotturu@gmail.com
+    password: wuhmsodmnbhgehtw
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 eureka:
   client:
@@ -23,3 +32,9 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: 127.0.0.1
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
