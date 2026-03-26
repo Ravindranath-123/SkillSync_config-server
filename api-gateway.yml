@@ -47,6 +47,24 @@ spring:
           predicates:
             - Path=/notification-service/**
 
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Auth Service
+        url: /auth-service/v3/api-docs
+      - name: Mentor Service
+        url: /mentor-service/v3/api-docs
+      - name: User Service
+        url: /user-service/v3/api-docs
+      - name: Session Service
+        url: /session-service/v3/api-docs
+      - name: Review Service
+        url: /review-service/v3/api-docs
+      - name: Skill Service
+        url: /skill-service/v3/api-docs
+      - name: Notification Service
+        url: /notification-service/v3/api-docs
+
 server:
   port: 8092
 
