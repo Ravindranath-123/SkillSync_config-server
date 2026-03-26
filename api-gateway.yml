@@ -57,6 +57,8 @@ spring:
 
 springdoc:
   swagger-ui:
+    # path: /swagger-ui.html
+    # enabled: true
     urls:
       - name: Auth Service
         url: /auth-service/v3/api-docs
@@ -72,8 +74,8 @@ springdoc:
         url: /skill-service/v3/api-docs
       - name: Notification Service
         url: /notification-service/v3/api-docs
-          api-docs:
-    enabled: true
+  api-docs:          
+    enabled: true    
 
 
 server:
