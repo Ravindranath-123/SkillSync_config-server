@@ -1,27 +1,31 @@
 spring:
   application:
     name: api-gateway
-
   cloud:
     discovery:
       enabled: true
-
     gateway:
       routes:
         - id: AUTH-SERVICE
           uri: lb://auth-service
           predicates:
             - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
 
         - id: MENTOR-SERVICE
           uri: lb://mentor-service
           predicates:
             - Path=/mentor-service/**
+          filters:
+            - StripPrefix=1
 
         - id: USER-SERVICE
           uri: lb://user-service
           predicates:
             - Path=/user-service/**
+          filters:
+            - StripPrefix=1
 
         - id: SESSION-SERVICE
           uri: lb://session-service
@@ -41,11 +45,15 @@ spring:
           uri: lb://skill-service
           predicates:
             - Path=/skill-service/**
+          filters:
+            - StripPrefix=1
 
         - id: NOTIFICATION-SERVICE
           uri: lb://notification-service
           predicates:
             - Path=/notification-service/**
+          filters:
+            - StripPrefix=1
 
 springdoc:
   swagger-ui:
