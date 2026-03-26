@@ -23,7 +23,11 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: 127.0.0.1
-
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
 
 resilience4j:
   circuitbreaker:
