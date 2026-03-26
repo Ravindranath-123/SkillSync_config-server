@@ -1,11 +1,14 @@
 spring:
   application:
     name: api-gateway
+
   cloud:
     discovery:
       enabled: true
+
     gateway:
       routes:
+        # ================= NORMAL ROUTES =================
         - id: AUTH-SERVICE
           uri: lb://auth-service
           predicates:
@@ -55,10 +58,64 @@ spring:
           filters:
             - StripPrefix=1
 
+        # ================= 🔥 SWAGGER ROUTES =================
+        - id: AUTH-SWAGGER
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/v3/api-docs
+          filters:
+            - RewritePath=/auth-service/v3/api-docs, /v3/api-docs
+
+        - id: MENTOR-SWAGGER
+          uri: lb://mentor-service
+          predicates:
+            - Path=/mentor-service/v3/api-docs
+          filters:
+            - RewritePath=/mentor-service/v3/api-docs, /v3/api-docs
+
+        - id: USER-SWAGGER
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/v3/api-docs
+          filters:
+            - RewritePath=/user-service/v3/api-docs, /v3/api-docs
+
+        - id: SESSION-SWAGGER
+          uri: lb://session-service
+          predicates:
+            - Path=/session-service/v3/api-docs
+          filters:
+            - RewritePath=/session-service/v3/api-docs, /v3/api-docs
+
+        - id: REVIEW-SWAGGER
+          uri: lb://review-service
+          predicates:
+            - Path=/review-service/v3/api-docs
+          filters:
+            - RewritePath=/review-service/v3/api-docs, /v3/api-docs
+
+        - id: SKILL-SWAGGER
+          uri: lb://skill-service
+          predicates:
+            - Path=/skill-service/v3/api-docs
+          filters:
+            - RewritePath=/skill-service/v3/api-docs, /v3/api-docs
+
+        - id: NOTIFICATION-SWAGGER
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification-service/v3/api-docs
+          filters:
+            - RewritePath=/notification-service/v3/api-docs, /v3/api-docs
+
+# ================= 🔥 SWAGGER CONFIG =================
 springdoc:
-  swagger-ui:
-    path: /swagger-ui/index.html
+  api-docs:
     enabled: true
+
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui/index.html
     urls:
       - name: Auth Service
         url: /auth-service/v3/api-docs
@@ -74,13 +131,12 @@ springdoc:
         url: /skill-service/v3/api-docs
       - name: Notification Service
         url: /notification-service/v3/api-docs
-  api-docs:          
-    enabled: true    
 
-
+# ================= SERVER =================
 server:
   port: 8092
 
+# ================= EUREKA =================
 eureka:
   client:
     service-url:
