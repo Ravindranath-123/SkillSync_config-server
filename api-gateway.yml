@@ -10,15 +10,34 @@ spring:
       server:
         webflux:
           routes:
-            - id: auth-service
-              uri: lb://AUTH-SERVICE
+            - id: AUTH-SERVICE
+              uri: lb://auth-service
               predicates:
-                - Path=/auth/**
-
-            - id: mentor-service
-              uri: lb://MENTOR-SERVICE
+                - Path=/auth-service/**
+    
+            - id: MENTOR-SERVICE
+              uri: lb://mentor-service
               predicates:
-                - Path=/mentors/**
+                - Path=/mentor-service/**
+    
+            - id: USER-SERVICE
+              uri: lb://user-service
+              predicates:
+                - Path=/user-service/**
+    
+            - id: SESSION-SERVICE
+              uri: lb://session-service
+              predicates:
+                - Path=/session-service/**
+              filters:
+                - StripPrefix=1
+    
+            - id: REVIEW-SERVICE
+              uri: lb://review-service
+              predicates:
+                - Path=/review-service/**
+              filters:
+                - StripPrefix=1
 
 server:
   port: 8092
