@@ -7,37 +7,45 @@ spring:
       enabled: true
 
     gateway:
-      server:
-        webflux:
-          routes:
-            - id: AUTH-SERVICE
-              uri: lb://auth-service
-              predicates:
-                - Path=/auth-service/**
-    
-            - id: MENTOR-SERVICE
-              uri: lb://mentor-service
-              predicates:
-                - Path=/mentor-service/**
-    
-            - id: USER-SERVICE
-              uri: lb://user-service
-              predicates:
-                - Path=/user-service/**
-    
-            - id: SESSION-SERVICE
-              uri: lb://session-service
-              predicates:
-                - Path=/session-service/**
-              filters:
-                - StripPrefix=1
-    
-            - id: REVIEW-SERVICE
-              uri: lb://review-service
-              predicates:
-                - Path=/review-service/**
-              filters:
-                - StripPrefix=1
+      routes:
+        - id: AUTH-SERVICE
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/**
+
+        - id: MENTOR-SERVICE
+          uri: lb://mentor-service
+          predicates:
+            - Path=/mentor-service/**
+
+        - id: USER-SERVICE
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+
+        - id: SESSION-SERVICE
+          uri: lb://session-service
+          predicates:
+            - Path=/session-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: REVIEW-SERVICE
+          uri: lb://review-service
+          predicates:
+            - Path=/review-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: SKILL-SERVICE
+          uri: lb://skill-service
+          predicates:
+            - Path=/skill-service/**
+
+        - id: NOTIFICATION-SERVICE
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification-service/**
 
 server:
   port: 8092
