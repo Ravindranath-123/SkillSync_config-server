@@ -1,3 +1,4 @@
+
 server:
   port: 8097
 
@@ -7,24 +8,26 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/review_db?createDatabaseIfNotExist=true
-    username: root
-    password: root123
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: true 
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
 springdoc:
   api-docs:
     enabled: true
   swagger-ui:
     enabled: true
+
 management:
   tracing:
     sampling:
