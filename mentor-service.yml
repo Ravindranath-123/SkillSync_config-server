@@ -44,10 +44,10 @@ management:
         include: "*"
 
 
-resilience4j:
-  circuitbreaker:
-    instances:
-      authServiceCB:
-        slidingWindowSize: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+# resilience4j:
+#   circuitbreaker:
+#     instances:
+#       authServiceCB:
+#         slidingWindowSize: 5
+#         failureRateThreshold: 50
+#         waitDurationInOpenState: 10s
