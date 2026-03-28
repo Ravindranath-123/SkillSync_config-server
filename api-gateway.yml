@@ -1,143 +1,75 @@
 spring:
   application:
     name: api-gateway
-
   cloud:
     discovery:
       enabled: true
-
     gateway:
-      routes:
-        # ================= NORMAL ROUTES =================
-        - id: AUTH-SERVICE
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth-service/**
-          filters:
-            - StripPrefix=1
+      server:
+        webflux:
+          routes:
+            - id: AUTH-SERVICE
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth-service/**
+              filters:
+                - StripPrefix=1     
+    
+            - id: MENTOR-SERVICE
+              uri: lb://mentor-service
+              predicates:
+                - Path=/mentor-service/**
+              filters:
+                - StripPrefix=1     
+    
+            - id: USER-SERVICE
+              uri: lb://user-service
+              predicates:
+                - Path=/user-service/**
+              filters:
+                - StripPrefix=1     
+    
+            - id: SESSION-SERVICE
+              uri: lb://session-service
+              predicates:
+                - Path=/session-service/**
+              filters:
+                - StripPrefix=1
+    
+            - id: REVIEW-SERVICE
+              uri: lb://review-service
+              predicates:
+                - Path=/review-service/**
+              filters:
+                - StripPrefix=1
+                
+            - id: SKILL-SERVICE
+              uri: lb://skill-service
+              predicates:
+                - Path=/skill-service/**
+              filters:
+                - StripPrefix=1
 
-        - id: MENTOR-SERVICE
-          uri: lb://mentor-service
-          predicates:
-            - Path=/mentor-service/**
-          filters:
-            - StripPrefix=1
 
-        - id: USER-SERVICE
-          uri: lb://user-service
-          predicates:
-            - Path=/user-service/**
-          filters:
-            - StripPrefix=1
-
-        - id: SESSION-SERVICE
-          uri: lb://session-service
-          predicates:
-            - Path=/session-service/**
-          filters:
-            - StripPrefix=1
-
-        - id: REVIEW-SERVICE
-          uri: lb://review-service
-          predicates:
-            - Path=/review-service/**
-          filters:
-            - StripPrefix=1
-
-        - id: SKILL-SERVICE
-          uri: lb://skill-service
-          predicates:
-            - Path=/skill-service/**
-          filters:
-            - StripPrefix=1
-
-        - id: NOTIFICATION-SERVICE
-          uri: lb://notification-service
-          predicates:
-            - Path=/notification-service/**
-          filters:
-            - StripPrefix=1
-
-        # ================= 🔥 SWAGGER ROUTES =================
-        - id: AUTH-SWAGGER
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth-service/v3/api-docs
-          filters:
-            - RewritePath=/auth-service/v3/api-docs, /v3/api-docs
-
-        - id: MENTOR-SWAGGER
-          uri: lb://mentor-service
-          predicates:
-            - Path=/mentor-service/v3/api-docs
-          filters:
-            - RewritePath=/mentor-service/v3/api-docs, /v3/api-docs
-
-        - id: USER-SWAGGER
-          uri: lb://user-service
-          predicates:
-            - Path=/user-service/v3/api-docs
-          filters:
-            - RewritePath=/user-service/v3/api-docs, /v3/api-docs
-
-        - id: SESSION-SWAGGER
-          uri: lb://session-service
-          predicates:
-            - Path=/session-service/v3/api-docs
-          filters:
-            - RewritePath=/session-service/v3/api-docs, /v3/api-docs
-
-        - id: REVIEW-SWAGGER
-          uri: lb://review-service
-          predicates:
-            - Path=/review-service/v3/api-docs
-          filters:
-            - RewritePath=/review-service/v3/api-docs, /v3/api-docs
-
-        - id: SKILL-SWAGGER
-          uri: lb://skill-service
-          predicates:
-            - Path=/skill-service/v3/api-docs
-          filters:
-            - RewritePath=/skill-service/v3/api-docs, /v3/api-docs
-
-        - id: NOTIFICATION-SWAGGER
-          uri: lb://notification-service
-          predicates:
-            - Path=/notification-service/v3/api-docs
-          filters:
-            - RewritePath=/notification-service/v3/api-docs, /v3/api-docs
-
-# ================= 🔥 SWAGGER CONFIG =================
-springdoc:
-  api-docs:
-    enabled: true
-
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui/index.html
-    urls:
-      - name: Auth Service
-        url: /auth-service/v3/api-docs
-      - name: Mentor Service
-        url: /mentor-service/v3/api-docs
-      - name: User Service
-        url: /user-service/v3/api-docs
-      - name: Session Service
-        url: /session-service/v3/api-docs
-      - name: Review Service
-        url: /review-service/v3/api-docs
-      - name: Skill Service
-        url: /skill-service/v3/api-docs
-      - name: Notification Service
-        url: /notification-service/v3/api-docs
-
-# ================= SERVER =================
 server:
   port: 8092
 
-# ================= EUREKA =================
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoint:
+      gateway:
+        enabled: true 
+  endpoints:
+    web:
+      exposure:
+        include: "*"      
+  springdoc:
+    api-docs:
+      enable: true
+    swagger-ui:
+      config-url: /v3/api-docs/swagger-config
+      disable-swagger-default-url: true
