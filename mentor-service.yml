@@ -7,7 +7,8 @@ spring:
     name: mentor-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/mentor_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql:3306/mentor_db?createDatabaseIfNotExist=true
+    # has been changed to mysql for docker.
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,7 +21,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-server:8761/eureka
+      # has been changed to eureka server for docker.
   instance:
     prefer-ip-address: true
     hostname: 127.0.0.1
