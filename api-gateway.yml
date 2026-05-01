@@ -13,21 +13,21 @@ spring:
               predicates:
                 - Path=/auth-service/**
               filters:
-                - StripPrefix=1     
+                - StripPrefix=1     # 👈 Missing, causes Forbidden 403 errors
     
             - id: MENTOR-SERVICE
               uri: lb://mentor-service
               predicates:
                 - Path=/mentor-service/**
               filters:
-                - StripPrefix=1     
+                - StripPrefix=1     # 👈 Missing, causes 404/403 errors
     
             - id: USER-SERVICE
               uri: lb://user-service
               predicates:
                 - Path=/user-service/**
               filters:
-                - StripPrefix=1     
+                - StripPrefix=1     # 👈 Missing, causes 404/403 errors
     
             - id: SESSION-SERVICE
               uri: lb://session-service
@@ -57,8 +57,8 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka 
-# has been changed to eureka server for docker.
+      defaultZone: http://localhost:9761/eureka
+
 management:
   endpoint:
       gateway:
@@ -73,3 +73,121 @@ management:
     swagger-ui:
       config-url: /v3/api-docs/swagger-config
       disable-swagger-default-url: true
+# springdoc:
+#   api-docs:
+#     enabled: true
+#   swagger-ui:
+#     urls:
+#       - name: Auth Service API
+#         url: /auth-service/v3/api-docs
+#       - name: Mentor Service API
+#         url: /mentor-service/v3/api-docs
+#       - name: User Service API
+#         url: /user-service/v3/api-docs
+#       - name: Session Service API
+#         url: /session-service/v3/api-docs
+#       - name: Review Service API
+#         url: /review-service/v3/api-docs
+#       - name: Skill Service API
+#         url: /skill-service/v3/api-docs
+
+# spring:
+#   application:
+#     name: api-gateway
+
+#   cloud:
+#     discovery:
+#       enabled: true
+
+#     gateway:
+#       globalcors:
+#         cors-configurations:
+#           '[/**]':
+#             allowedOrigins:
+#               - "*"
+#             allowedMethods:
+#               - GET
+#               - POST
+#               - PUT
+#               - DELETE
+#               - OPTIONS
+#             allowedHeaders: "*"
+#             allowCredentials: true
+
+#       routes:
+#         - id: AUTH-SERVICE
+#           uri: lb://AUTH-SERVICE
+#           predicates:
+#             - Path=/auth-service/**
+#           filters:
+#             - StripPrefix=1
+
+#         - id: MENTOR-SERVICE
+#           uri: lb://MENTOR-SERVICE
+#           predicates:
+#             - Path=/mentor-service/**
+#           filters:
+#             - StripPrefix=1
+
+#         - id: USER-SERVICE
+#           uri: lb://USER-SERVICE
+#           predicates:
+#             - Path=/user-service/**
+#           filters:
+#             - StripPrefix=1
+
+#         - id: SESSION-SERVICE
+#           uri: lb://SESSION-SERVICE
+#           predicates:
+#             - Path=/session-service/**
+#           filters:
+#             - StripPrefix=1
+
+#         - id: REVIEW-SERVICE
+#           uri: lb://REVIEW-SERVICE
+#           predicates:
+#             - Path=/review-service/**
+#           filters:
+#             - StripPrefix=1
+
+#         - id: SKILL-SERVICE
+#           uri: lb://SKILL-SERVICE
+#           predicates:
+#             - Path=/skill-service/**
+#           filters:
+#             - StripPrefix=1
+
+# server:
+#   port: 8085
+
+# eureka:
+#   client:
+#     service-url:
+#       defaultZone: http://localhost:8761/eureka
+
+# management:
+#   endpoint:
+#     gateway:
+#       enabled: true
+#   endpoints:
+#     web:
+#       exposure:
+#         include: "*"
+
+# springdoc:
+#   api-docs:
+#     enabled: true
+#   swagger-ui:
+#     urls:
+#       - name: Auth Service API
+#         url: /auth-service/v3/api-docs
+#       - name: Mentor Service API
+#         url: /mentor-service/v3/api-docs
+#       - name: User Service API
+#         url: /user-service/v3/api-docs
+#       - name: Session Service API
+#         url: /session-service/v3/api-docs
+#       - name: Review Service API
+#         url: /review-service/v3/api-docs
+#       - name: Skill Service API
+#         url: /skill-service/v3/api-docs
