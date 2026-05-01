@@ -1,6 +1,6 @@
 server:
   forward-headers-strategy: framework
-  port: 8095
+  port: 8083
 
 spring:
   application:
